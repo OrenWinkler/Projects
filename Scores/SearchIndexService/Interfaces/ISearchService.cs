@@ -5,6 +5,6 @@ namespace SearchIndexService.Connectors
 {
     public interface ISearchService
     {
-        DocumentSearchResult<Contest> RunQuery(SearchParameters parameters);
+        DocumentSearchResult<Contest> RunQuery(SearchIndexParameters parameters);
     }
 }

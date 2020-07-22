@@ -7,6 +7,7 @@ using System.Web.Helpers;
 using Common.BusinessObjects;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Search.Models;
+using SearchIndexService;
 using SearchIndexService.Connectors;
 
 namespace ScoresAPIService.Controllers
@@ -49,10 +50,9 @@ namespace ScoresAPIService.Controllers
             string formattedToDate = to.ToString("yyyy-MM-ddTHH:mm:ssZ");
 
             ISearchService searchService = new AzureSearchService();
-            SearchParameters parameters = new SearchParameters()
+            SearchIndexParameters parameters = new SearchIndexParameters()
             {
-
-            Filter = $"GameStartDate gt {formattedFromDate} and GameStartDate lt {formattedToDate}",
+                Filter = $"GameStartDate gt {formattedFromDate} and GameStartDate lt {formattedToDate}",
                 Select = new[] { "id","GameStartDate","CompetitionName", "Teams", "SportType", "League" }
             };
 

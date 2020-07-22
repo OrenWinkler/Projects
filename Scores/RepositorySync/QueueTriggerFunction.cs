@@ -5,6 +5,7 @@ using Microsoft.Azure.Search.Models;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Logging;
+using SearchIndexService;
 using SearchIndexService.Connectors;
 
 namespace RepositorySync
@@ -45,7 +46,7 @@ namespace RepositorySync
             int sportTypeDuplicationRange = SportTypeTimeRangeDuplication.GetTimeRangeBySportType(contest.SportType);
             
             ISearchService searchService = new AzureSearchService();
-            SearchParameters parameters = new SearchParameters()
+            SearchIndexParameters parameters = new SearchIndexParameters()
             {
                 Filter = $"id eq '{contest.id}' and GameStartDate gt {contest.GameStartDate.AddHours(-sportTypeDuplicationRange).ToString("yyyy-MM-ddTHH:mm:ssZ")} and GameStartDate lt {contest.GameStartDate.AddHours(sportTypeDuplicationRange).ToString("yyyy-MM-ddTHH:mm:ssZ")}",
                 Select = new[] { "id" }

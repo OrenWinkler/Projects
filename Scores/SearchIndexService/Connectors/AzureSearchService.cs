@@ -25,10 +25,16 @@ namespace SearchIndexService.Connectors
             _searchClient = new SearchServiceClient(searchServiceName, new SearchCredentials(adminApiKey));
         }
 
-        public DocumentSearchResult<Contest> RunQuery(SearchParameters parameters)
+        public DocumentSearchResult<Contest> RunQuery(SearchIndexParameters parameters)
         {
+            SearchParameters searchParameters = new SearchParameters()
+            {
+                Filter = parameters.Filter,
+                Select = parameters.Select
+            };
+
             ISearchIndexClient indexClient = _searchClient.Indexes.GetClient("scoresindex");
-            var results = indexClient.Documents.Search<Contest>("*", parameters);
+            var results = indexClient.Documents.Search<Contest>("*", searchParameters);
 
             return results;
         }
