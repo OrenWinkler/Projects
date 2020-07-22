@@ -21,23 +21,30 @@ namespace RepositorySync
         [FunctionName("QueueTrigger")]
         public static void Run([ServiceBusTrigger("gamesfeed", Connection = "gamesreposiroty_RootManageSharedAccessKey_SERVICEBUS")]string myQueueItem, ILogger log)
         {
-            log.LogInformation($"ServiceBus queue trigger function processed message: {myQueueItem}");
-
-            var message = Newtonsoft.Json.JsonConvert.DeserializeObject<GameUpdateResult>(myQueueItem);
-
-            if(message != null && message.Contests != null)
+            try
             {
-                IDBConnector dbConnector = new CosmosDBConnector();
+                log.LogInformation($"ServiceBus queue trigger function processed message: {myQueueItem}");
 
-                foreach(var contest in message.Contests)
+                var message = Newtonsoft.Json.JsonConvert.DeserializeObject<GameUpdateResult>(myQueueItem);
+
+                if (message != null && message.Contests != null)
                 {
-                    contest.CreateID();
+                    IDBConnector dbConnector = new CosmosDBConnector();
 
-                    bool isItemExists = CheckDuplication(dbConnector, contest);
+                    foreach (var contest in message.Contests)
+                    {
+                        contest.CreateID();
 
-                    if(!isItemExists)
-                        dbConnector.AddContest(contest);
+                        bool isItemExists = CheckDuplication(dbConnector, contest);
+
+                        if (!isItemExists)
+                            dbConnector.AddContest(contest);
+                    }
                 }
+            }
+            catch(Exception ex)
+            {
+                log.LogError(ex, "QueueTrigger function failed");
             }
         }
 

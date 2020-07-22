@@ -46,25 +46,33 @@ namespace ScoresAPIService.Controllers
         /// <returns></returns>
         private List<Contest> GetContestList(DateTime from, DateTime to)
         {
-            string formattedFromDate = from.ToString("yyyy-MM-ddTHH:mm:ssZ");
-            string formattedToDate = to.ToString("yyyy-MM-ddTHH:mm:ssZ");
-
-            ISearchService searchService = new AzureSearchService();
-            SearchIndexParameters parameters = new SearchIndexParameters()
+            try
             {
-                Filter = $"GameStartDate gt {formattedFromDate} and GameStartDate lt {formattedToDate}",
-                Select = new[] { "id","GameStartDate","CompetitionName", "Teams", "SportType", "League" }
-            };
+                string formattedFromDate = from.ToString("yyyy-MM-ddTHH:mm:ssZ");
+                string formattedToDate = to.ToString("yyyy-MM-ddTHH:mm:ssZ");
 
-            var results = searchService.RunQuery(parameters);
+                ISearchService searchService = new AzureSearchService();
+                SearchIndexParameters parameters = new SearchIndexParameters()
+                {
+                    Filter = $"GameStartDate gt {formattedFromDate} and GameStartDate lt {formattedToDate}",
+                    Select = new[] { "id", "GameStartDate", "CompetitionName", "Teams", "SportType", "League" }
+                };
 
-            List<Contest> contests = new List<Contest>();
-            if (results != null && results.Results != null)
-            {
-                BuildResults(results, contests);
+                var results = searchService.RunQuery(parameters);
+
+                List<Contest> contests = new List<Contest>();
+                if (results != null && results.Results != null)
+                {
+                    BuildResults(results, contests);
+                }
+
+                return contests;
             }
-
-            return contests;
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+                return null;
+            }
         }
 
         private static void BuildResults(DocumentSearchResult<Contest> results, List<Contest> contests)

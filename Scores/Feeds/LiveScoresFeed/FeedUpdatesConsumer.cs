@@ -10,7 +10,7 @@ namespace LiveScoresFeed
     {
         public GameUpdateResult GetGameDetails()
         {
-            RESTClient client = new RESTClient();
+            LiveScoresRESTClient client = new LiveScoresRESTClient();
             var response = client.GetLiveScores();
 
             return (response != null) ? ConvertResponse(response) : null;

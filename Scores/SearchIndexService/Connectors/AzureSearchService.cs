@@ -27,16 +27,24 @@ namespace SearchIndexService.Connectors
 
         public DocumentSearchResult<Contest> RunQuery(SearchIndexParameters parameters)
         {
-            SearchParameters searchParameters = new SearchParameters()
+            try
             {
-                Filter = parameters.Filter,
-                Select = parameters.Select
-            };
+                SearchParameters searchParameters = new SearchParameters()
+                {
+                    Filter = parameters.Filter,
+                    Select = parameters.Select
+                };
 
-            ISearchIndexClient indexClient = _searchClient.Indexes.GetClient("scoresindex");
-            var results = indexClient.Documents.Search<Contest>("*", searchParameters);
+                ISearchIndexClient indexClient = _searchClient.Indexes.GetClient("scoresindex");
+                var results = indexClient.Documents.Search<Contest>("*", searchParameters);
 
-            return results;
+                return results;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+                return null;
+            }
         }
     }
 }

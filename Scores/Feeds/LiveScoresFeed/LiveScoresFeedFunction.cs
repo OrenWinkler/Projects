@@ -16,16 +16,22 @@ namespace LiveScoresFeed
         [FunctionName("GetLiveScoresFeed")]
         public static void Run([TimerTrigger("0 */5 * * * *")]TimerInfo myTimer, ILogger log)
         {
-            log.LogInformation($"GetLiveScoresFeed Timer trigger function executed at: {DateTime.Now}");
-
-            FeedUpdatesConsumer consumer = new FeedUpdatesConsumer();
-            var gamedetails = consumer.GetGameDetails();
-
-            if(gamedetails != null)
+            try
             {
-                SendMessageToQueue(gamedetails);
-            }
+                log.LogInformation($"GetLiveScoresFeed Timer trigger function executed at: {DateTime.Now}");
 
+                FeedUpdatesConsumer consumer = new FeedUpdatesConsumer();
+                var gamedetails = consumer.GetGameDetails();
+
+                if (gamedetails != null)
+                {
+                    SendMessageToQueue(gamedetails);
+                }
+            }
+            catch(Exception ex)
+            {
+                log.LogError(ex, "Function failed");
+            }
         }
 
         private static void SendMessageToQueue(GameUpdateResult gamedetails)
