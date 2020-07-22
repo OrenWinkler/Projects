@@ -29,6 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScoresAPIService", "ScoresA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{FABB9BB1-9D26-4BBF-8308-F1E5FD61607F}"
 	ProjectSection(SolutionItems) = preProject
+		Readme.txt = Readme.txt
 		Documents\ScoreApi.pptx = Documents\ScoreApi.pptx
 	EndProjectSection
 EndProject
