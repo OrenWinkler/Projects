@@ -25,7 +25,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearchIndexService", "Searc
 EndProject
 Project("{A07B5EB6-E848-4116-A8D0-A826331D98C6}") = "ScoresApp", "ScoresApp\ScoresApp.sfproj", "{2179EF0E-1954-4020-943D-4D71D42C7CDC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScoresAPIService", "ScoresAPIService\ScoresAPIService.csproj", "{F74541D6-9C5F-4772-9F2C-4AA0101FC388}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScoresAPIService", "ScoresAPIService\ScoresAPIService.csproj", "{F74541D6-9C5F-4772-9F2C-4AA0101FC388}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{FABB9BB1-9D26-4BBF-8308-F1E5FD61607F}"
+	ProjectSection(SolutionItems) = preProject
+		Documents\ScoreApi.pptx = Documents\ScoreApi.pptx
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
