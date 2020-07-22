@@ -18,3 +18,13 @@
 /Scores/SearchIndexService/obj/Debug
 /Scores/Testers/LiveScoresTester/bin/Debug
 /Scores/Testers/LiveScoresTester/obj/Debug
+/Scores/Common/bin/Release
+/Scores/Common/obj/Release
+/Scores/DBService/bin/Release
+/Scores/QueueService/bin/Release
+/Scores/QueueService/obj/Release
+/Scores/ScoresApp/pkg/Debug
+/Scores/SearchIndexService/bin/Release
+/Scores/DBService/obj/Release
+/Scores/SearchIndexService/obj/Release
+/Scores/Testers/LiveScoresTester/obj/Release
