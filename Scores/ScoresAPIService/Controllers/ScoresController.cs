@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
-using System.Web.Helpers;
 using Common.BusinessObjects;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Search.Models;
@@ -55,7 +54,7 @@ namespace ScoresAPIService.Controllers
                 SearchIndexParameters parameters = new SearchIndexParameters()
                 {
                     Filter = $"GameStartDate gt {formattedFromDate} and GameStartDate lt {formattedToDate}",
-                    Select = new[] { "id", "GameStartDate", "CompetitionName", "Teams", "SportType", "League" }
+                    Select = new[] { "id", "GameStartDate", "CompetitionName", "HomeTeam", "AwayTeam", "SportType", "League" }
                 };
 
                 var results = searchService.RunQuery(parameters);
@@ -86,7 +85,8 @@ namespace ScoresAPIService.Controllers
                     GameStartDate = result.Document.GameStartDate,
                     League = result.Document.League,
                     SportType = result.Document.SportType,
-                    Teams = result.Document.Teams
+                    HomeTeam = result.Document.HomeTeam,
+                    AwayTeam = result.Document.AwayTeam
                 };
 
                 contests.Add(contest);

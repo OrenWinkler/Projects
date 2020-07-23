@@ -33,8 +33,6 @@ namespace RepositorySync
 
                     foreach (var contest in message.Contests)
                     {
-                        contest.CreateID();
-
                         bool isItemExists = CheckDuplication(dbConnector, contest);
 
                         if (!isItemExists)
@@ -55,7 +53,11 @@ namespace RepositorySync
             ISearchService searchService = new AzureSearchService();
             SearchIndexParameters parameters = new SearchIndexParameters()
             {
-                Filter = $"id eq '{contest.id}' and GameStartDate gt {contest.GameStartDate.AddHours(-sportTypeDuplicationRange).ToString("yyyy-MM-ddTHH:mm:ssZ")} and GameStartDate lt {contest.GameStartDate.AddHours(sportTypeDuplicationRange).ToString("yyyy-MM-ddTHH:mm:ssZ")}",
+                Filter = $"SportType eq '{contest.SportType}' and League eq '{contest.League}' " +
+                $"and HomeTeam eq '{contest.HomeTeam}' and AwayTeam eq '{contest.AwayTeam}' " +
+                $"and GameStartDate gt {contest.GameStartDate.AddHours(-sportTypeDuplicationRange).ToString("yyyy-MM-ddTHH:mm:ssZ")} " +
+                $"and GameStartDate lt {contest.GameStartDate.AddHours(sportTypeDuplicationRange).ToString("yyyy-MM-ddTHH:mm:ssZ")}",
+                
                 Select = new[] { "id" }
             };
 

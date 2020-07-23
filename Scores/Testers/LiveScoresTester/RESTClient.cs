@@ -45,11 +45,9 @@ namespace LiveScoresTester
                     CompetitionName = match.competition_name,
                     GameStartDate = DateTime.Parse(match.scheduled),
                     SportType = "Soccer",
-                    Teams = new List<string>()
+                    HomeTeam = match.home_name,
+                    AwayTeam = match.away_name
                 };
-
-                contest.Teams.Add(match.home_name);
-                contest.Teams.Add(match.away_name);
 
                 result.Contests.Add(contest);
             }

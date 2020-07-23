@@ -20,7 +20,7 @@ namespace SearchIndexService.Connectors
         public AzureSearchService()
         {
             string searchServiceName = "searchserviceindex";
-            string adminApiKey = "C03171D8466447FBC743BAD0CA592431";
+            string adminApiKey = "BFA34BBD268E9E25BC23E2961341DB09";
 
             _searchClient = new SearchServiceClient(searchServiceName, new SearchCredentials(adminApiKey));
         }
